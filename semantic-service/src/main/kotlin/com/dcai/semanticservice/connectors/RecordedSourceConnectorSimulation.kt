@@ -8,6 +8,7 @@ import com.dcai.semanticservice.ingestion.EvidenceClass
 import com.dcai.semanticservice.ingestion.EvidenceSourceRecord
 import com.dcai.semanticservice.ingestion.FacilitySourceRecord
 import com.dcai.semanticservice.ingestion.ImpactSourceRecord
+import com.dcai.semanticservice.ingestion.IncidentLifecycleState
 import com.dcai.semanticservice.ingestion.IncidentSourceRecord
 import com.dcai.semanticservice.ingestion.SourceExtractBatch
 import com.dcai.semanticservice.ingestion.WorkflowEventSourceRecord
@@ -74,6 +75,7 @@ class RecordedSourceConnectorSimulationLoader {
                 assetId = row.required("assetId"),
                 currentStageId = row.required("currentStageId"),
                 currentStageLabel = row.required("currentStageLabel"),
+                lifecycleState = row.enumOptional<IncidentLifecycleState>("lifecycleState"),
             )
         }
         val dependencies = context.loadRecords("dependencies.csv", "edgeId") { row ->

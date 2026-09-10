@@ -78,6 +78,11 @@ dcai:FollowUpQueueItemShape
   a sh:NodeShape ;
   sh:targetClass dcai:FollowUpQueueItem ;
   sh:property [
+    sh:path dcai:hasCurrentStatus ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string
+  ] ;
+  sh:property [
     sh:path dcai:hasRepeatFailureAssetCount ;
     sh:minCount 0 ;
     sh:datatype xsd:integer
@@ -127,6 +132,7 @@ dcai:TrustFindingShape
   sh:property [
     sh:path dcai:hasConfidenceState ;
     sh:minCount 0 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string
   ] ;
   sh:property [

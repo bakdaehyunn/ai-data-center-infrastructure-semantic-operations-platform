@@ -18,6 +18,8 @@ Status meanings:
 | Recorded-source loading and quarantine | One local CSV contract; supported invalid and duplicate rows are rejected | `RecordedSourceConnectorSimulation.kt`, its tests, scenario generator test |
 | RDF mapping | Source DTOs map to source, canonical, and provenance models | `SourceExtractRdfMapper.kt`, `SourceExtractRdfMapperTest.kt` |
 | Current-stage mapping | `IncidentSourceRecord.currentStageId` is copied to `dcai:hasCurrentStage` | `SourceExtractRdfMapper.mapIncident`, mapper tests |
+| Incident lifecycle mapping | Optional `IncidentSourceRecord.lifecycleState` maps independently to `dcai:hasIncidentLifecycleState`; it is not derived from current stage | `SourceExtractRdfMapper.mapIncident`, mapper and loader tests |
+| State consistency validation | Closed OWL vocabularies, explicit category disjointness, canonical lexical normalization, functional properties, and SHACL allow-list/max-count/pair-consistency constraints reject unknown or conflicting state representations | `ontology/modules/state-vocabulary.ttl`, state/canonical/topology/workflow/impact-evidence/action-audit shapes, promotion and vocabulary-contract tests |
 | Graph promotion gates | Canonical/source/provenance models must pass validation before managed writes | `GraphPromotionService.kt`, `ProductionGraphValidationGate.kt`, promotion tests |
 | Rollback under injected write failure | Managed multi-graph replacement restores snapshots in tested failure cases | `ManagedGraphWriteCoordinator.kt` and promotion/reasoning/action rollback tests |
 | Deterministic reasoning | Restore readiness, blockers, trust, dependency impact, and blast radius | `ReasoningModelBuilder.kt`, `ReasoningModelBuilderTest.kt` |

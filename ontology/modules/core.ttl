@@ -26,7 +26,7 @@ dcai:SourceSystem rdf:type owl:Class .
 dcai:ControlledVocabularyTerm rdf:type owl:Class ;
   rdfs:subClassOf dcai:IdentifiedResource .
 
-dcai:hasIdentifier rdf:type owl:DatatypeProperty ;
+dcai:hasIdentifier rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:IdentifiedResource ;
   rdfs:range xsd:string .
 dcai:hasSourceSystem rdf:type owl:ObjectProperty ;

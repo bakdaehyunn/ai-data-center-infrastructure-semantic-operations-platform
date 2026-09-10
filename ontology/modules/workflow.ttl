@@ -14,7 +14,8 @@ dcai:workflow
 
 dcai:InfrastructureIncident rdf:type owl:Class ;
   rdfs:subClassOf dcai:OperationalEntity .
-dcai:WorkflowStage rdf:type owl:Class .
+dcai:WorkflowStage rdf:type owl:Class ;
+  owl:disjointWith dcai:ControlledVocabularyTerm .
 dcai:WorkflowEvent rdf:type owl:Class ;
   rdfs:subClassOf dcai:OperationalEvent .
 dcai:RecoveryBlocker rdf:type owl:Class ;
@@ -22,19 +23,29 @@ dcai:RecoveryBlocker rdf:type owl:Class ;
 dcai:FollowUpDecision rdf:type owl:Class ;
   rdfs:subClassOf dcai:DerivedFact .
 dcai:IncidentStageState rdf:type owl:Class ;
-  rdfs:subClassOf dcai:ControlledVocabularyTerm .
+  rdfs:subClassOf dcai:ControlledVocabularyTerm ;
+  owl:deprecated true ;
+  rdfs:comment "Deprecated because this duplicated WorkflowStage. Use IncidentLifecycleState for incident lifecycle and WorkflowStage for process position." .
+dcai:IncidentLifecycleState rdf:type owl:Class ;
+  rdfs:subClassOf dcai:ControlledVocabularyTerm ;
+  owl:disjointWith dcai:WorkflowStage .
 dcai:WorkflowEventStatus rdf:type owl:Class ;
   rdfs:subClassOf dcai:ControlledVocabularyTerm .
 
 dcai:affectsAsset rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:InfrastructureIncident ;
   rdfs:range dcai:InfrastructureAsset .
-dcai:hasCurrentStage rdf:type owl:ObjectProperty ;
+dcai:hasCurrentStage rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:InfrastructureIncident ;
   rdfs:range dcai:WorkflowStage .
 dcai:hasIncidentStageState rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:InfrastructureIncident ;
-  rdfs:range dcai:IncidentStageState .
+  rdfs:range dcai:IncidentStageState ;
+  owl:deprecated true ;
+  rdfs:comment "Deprecated duplicate of hasCurrentStage. Use hasIncidentLifecycleState for lifecycle state." .
+dcai:hasIncidentLifecycleState rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:domain dcai:InfrastructureIncident ;
+  rdfs:range dcai:IncidentLifecycleState .
 dcai:enteredStage rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:WorkflowEvent ;
   rdfs:range dcai:WorkflowStage .
@@ -50,10 +61,10 @@ dcai:eventForIncident rdf:type owl:ObjectProperty ;
 dcai:hasEventId rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:WorkflowEvent ;
   rdfs:range xsd:string .
-dcai:hasEventStatus rdf:type owl:DatatypeProperty ;
+dcai:hasEventStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:WorkflowEvent ;
   rdfs:range xsd:string .
-dcai:hasWorkflowEventStatus rdf:type owl:ObjectProperty ;
+dcai:hasWorkflowEventStatus rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:WorkflowEvent ;
   rdfs:range dcai:WorkflowEventStatus .
 dcai:enteredAt rdf:type owl:DatatypeProperty ;

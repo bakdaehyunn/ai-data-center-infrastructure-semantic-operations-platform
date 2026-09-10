@@ -1,5 +1,7 @@
 @prefix dcai: <urn:dcai:ontology:> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix state: <urn:dcai:state:incident-lifecycle:> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 dcai:WorkflowIncidentStageShape
@@ -12,9 +14,15 @@ dcai:WorkflowIncidentStageShape
     sh:class dcai:WorkflowStage
   ] ;
   sh:property [
+    sh:path dcai:hasIncidentLifecycleState ;
+    sh:maxCount 1 ;
+    sh:class dcai:IncidentLifecycleState ;
+    sh:in ( state:in-progress state:restored )
+  ] ;
+  sh:property [
     sh:path dcai:hasIncidentStageState ;
-    sh:minCount 1 ;
-    sh:class dcai:IncidentStageState
+    sh:maxCount 0 ;
+    sh:message "hasIncidentStageState is deprecated; use hasCurrentStage and hasIncidentLifecycleState separately."
   ] .
 
 dcai:WorkflowEventStageShape
@@ -37,15 +45,22 @@ dcai:WorkflowEventStageShape
   sh:property [
     sh:path dcai:hasEventStatus ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string
   ] ;
   sh:property [
     sh:path dcai:hasWorkflowEventStatus ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:class dcai:WorkflowEventStatus
   ] ;
   sh:property [
     sh:path dcai:enteredAt ;
     sh:minCount 1 ;
     sh:datatype xsd:dateTime
+  ] ;
+  sh:property [
+    sh:path ( dcai:hasWorkflowEventStatus rdfs:label ) ;
+    sh:equals dcai:hasEventStatus ;
+    sh:message "hasEventStatus must equal the rdfs:label of hasWorkflowEventStatus."
   ] .

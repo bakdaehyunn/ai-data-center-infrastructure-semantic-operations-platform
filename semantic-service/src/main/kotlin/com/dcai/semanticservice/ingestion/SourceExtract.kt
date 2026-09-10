@@ -77,7 +77,13 @@ data class IncidentSourceRecord(
     val assetId: String,
     val currentStageId: String,
     val currentStageLabel: String,
+    val lifecycleState: IncidentLifecycleState? = null,
 ) : SourceRecordIdentity
+
+enum class IncidentLifecycleState(val id: String) {
+    IN_PROGRESS("IN_PROGRESS"),
+    RESTORED("RESTORED"),
+}
 
 data class DependencySourceRecord(
     override val recordId: String,

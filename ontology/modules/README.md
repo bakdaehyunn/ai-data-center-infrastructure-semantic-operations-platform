@@ -1,13 +1,11 @@
-# Ontology Modules
+# Authoritative Ontology Modules
 
-Phase 1 scaffold for the ontology-native rewrite.
+This directory contains the active versioned OWL/RDFS domain contract loaded by
+the semantic service. The historical `https://example.local/` scaffold is kept
+under `ontology/legacy/` and must not be imported by runtime modules, shapes,
+queries, fixtures, or application code.
 
-This directory will hold the versioned OWL/RDFS modules that become the domain
-contract for the graph-native platform. The current hybrid ontology files in
-`ontology/` remain reference material until Phase 2 migrates domain semantics
-into this module layout.
-
-Planned modules:
+Active modules:
 
 - `core.ttl`
 - `infrastructure.ttl`
@@ -18,6 +16,9 @@ Planned modules:
 - `provenance.ttl`
 - `ai-interaction.ttl`
 - `operations.ttl`
+- `state-vocabulary.ttl`
 
-Phase 1 does not implement domain ontology logic here. It only establishes the
-tracked directory boundary for the rewrite.
+`state-vocabulary.ttl` is the authority for finite controlled vocabularies and
+cross-category separation. Runtime validation loads schemas only from this
+directory and executable SHACL constraints from the repository-level `shapes/`
+directory.

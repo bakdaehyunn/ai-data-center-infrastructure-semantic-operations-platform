@@ -1,0 +1,155 @@
+@prefix dcai: <urn:dcai:ontology:> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix criticality: <urn:dcai:state:criticality:> .
+@prefix operational: <urn:dcai:state:operational-status:> .
+@prefix lifecycle: <urn:dcai:state:incident-lifecycle:> .
+@prefix dependencyRole: <urn:dcai:state:dependency-role:> .
+@prefix impactScope: <urn:dcai:state:impact-scope:> .
+@prefix workflowStatus: <urn:dcai:state:workflow-event-status:> .
+@prefix redundancy: <urn:dcai:state:redundancy-state:> .
+@prefix mitigation: <urn:dcai:state:mitigation-state:> .
+@prefix vendor: <urn:dcai:state:vendor-state:> .
+@prefix confidence: <urn:dcai:state:evidence-confidence:> .
+@prefix telemetry: <urn:dcai:state:telemetry-status:> .
+@prefix validation: <urn:dcai:state:validation-status:> .
+@prefix workOrder: <urn:dcai:state:work-order-status:> .
+
+dcai:CriticalityVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:CriticalityLevel ; sh:nodeKind sh:IRI ;
+  sh:in ( criticality:critical criticality:high ) ;
+  sh:message "CriticalityLevel must use an IRI from the authoritative criticality vocabulary." .
+
+dcai:OperationalStatusVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:OperationalStatus ; sh:nodeKind sh:IRI ;
+  sh:in (
+    operational:alerting operational:at-risk operational:degraded operational:gap
+    operational:monitor operational:recovering operational:running operational:stable
+  ) ;
+  sh:message "OperationalStatus must use an IRI from the authoritative operational-status vocabulary." .
+
+dcai:IncidentLifecycleVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:IncidentLifecycleState ; sh:nodeKind sh:IRI ;
+  sh:in ( lifecycle:in-progress lifecycle:restored ) ;
+  sh:message "IncidentLifecycleState must use an IRI from the authoritative incident-lifecycle vocabulary." .
+
+dcai:DependencyRoleVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:DependencyRole ; sh:nodeKind sh:IRI ;
+  sh:in (
+    dependencyRole:cooling-loop dependencyRole:cooling-supply dependencyRole:power-feed
+    dependencyRole:power-supply dependencyRole:telemetry-source dependencyRole:upstream-gpu-fabric
+  ) ;
+  sh:message "DependencyRole must use an IRI from the authoritative dependency-role vocabulary." .
+
+dcai:ImpactScopeVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:ImpactScope ; sh:nodeKind sh:IRI ;
+  sh:in (
+    impactScope:downstream-rack-row impactScope:gpu-pod impactScope:pod
+    impactScope:rack-group impactScope:rack-row impactScope:row
+  ) ;
+  sh:message "ImpactScope must use an IRI from the authoritative impact-scope vocabulary." .
+
+dcai:WorkflowEventStatusVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:WorkflowEventStatus ; sh:nodeKind sh:IRI ;
+  sh:in (
+    workflowStatus:active workflowStatus:blocked workflowStatus:complete
+    workflowStatus:completed workflowStatus:delayed workflowStatus:open workflowStatus:ready
+  ) ;
+  sh:message "WorkflowEventStatus must use an IRI from the authoritative workflow-event-status vocabulary." .
+
+dcai:RedundancyStateVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:RedundancyState ; sh:nodeKind sh:IRI ;
+  sh:in ( redundancy:n-1 redundancy:n-plus-0 redundancy:n-plus-1 redundancy:nominal ) ;
+  sh:message "RedundancyState must use an IRI from the authoritative redundancy-state vocabulary." .
+
+dcai:MitigationStateVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:MitigationState ; sh:nodeKind sh:IRI ;
+  sh:in (
+    mitigation:awaiting-signoff mitigation:capacity-buffer-reduced mitigation:capacity-watch
+    mitigation:dispatch-pending mitigation:evidence-review mitigation:fan-curve-adjusted
+    mitigation:load-shed-active mitigation:manual-mitigation-active mitigation:manual-sampling-active
+    mitigation:mitigated mitigation:not-started mitigation:pending-verification mitigation:restore-blocked
+    mitigation:running-degraded mitigation:telemetry-replay-pending mitigation:thermal-throttle-active
+    mitigation:validation-hold mitigation:workload-evacuation-active
+  ) ;
+  sh:message "MitigationState must use an IRI from the authoritative mitigation-state vocabulary." .
+
+dcai:VendorStateVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:VendorState ; sh:nodeKind sh:IRI ;
+  sh:in ( vendor:eta-met vendor:eta-missed vendor:eta-pending vendor:monitoring vendor:parts-review vendor:vendor-engaged ) ;
+  sh:message "VendorState must use an IRI from the authoritative vendor-state vocabulary." .
+
+dcai:EvidenceConfidenceVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:EvidenceConfidenceState ; sh:nodeKind sh:IRI ;
+  sh:in ( confidence:conflicted confidence:low-confidence confidence:review confidence:review-required confidence:trusted ) ;
+  sh:message "EvidenceConfidenceState must use an IRI from the authoritative evidence-confidence vocabulary." .
+
+dcai:TelemetryStatusVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:TelemetryStatus ; sh:nodeKind sh:IRI ;
+  sh:in (
+    telemetry:alerting telemetry:conflict telemetry:critical telemetry:degraded telemetry:gap
+    telemetry:missing-gap telemetry:normal telemetry:recovering telemetry:warning
+  ) ;
+  sh:message "TelemetryStatus must use an IRI from the authoritative telemetry-status vocabulary." .
+
+dcai:ValidationStatusVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:ValidationStatus ; sh:nodeKind sh:IRI ;
+  sh:in (
+    validation:awaiting-temperature-stabilization validation:awaiting-transfer-test
+    validation:blast-radius-review-required validation:blocked validation:conflicting
+    validation:cooling-loop-confirmed validation:failed validation:field-dispatch-needed
+    validation:manual-confirmation-required validation:missing-final-validation validation:passed
+    validation:power-path-confirmed validation:primary-validation-pass validation:recovery-blocked-by-telemetry
+    validation:repair-window-delayed validation:repeat-failure-observed validation:restore-readiness-blocked
+    validation:secondary-validation-conflict validation:telemetry-gap-detected
+  ) ;
+  sh:message "ValidationStatus must use an IRI from the authoritative validation-status vocabulary." .
+
+dcai:WorkOrderStatusVocabularyShape
+  a sh:NodeShape ; sh:targetClass dcai:WorkOrderStatus ; sh:nodeKind sh:IRI ;
+  sh:in (
+    workOrder:assigned workOrder:awaiting-assignment workOrder:awaiting-signoff workOrder:blocked
+    workOrder:capacity-review workOrder:completed workOrder:conflict-review workOrder:delayed
+    workOrder:dispatched workOrder:in-progress workOrder:manual-review workOrder:pending-verification
+    workOrder:requested workOrder:waiting-spare-vendor workOrder:waiting-vendor
+  ) ;
+  sh:message "WorkOrderStatus must use an IRI from the authoritative work-order-status vocabulary." .
+
+dcai:ControlledCategorySeparationShape
+  a sh:NodeShape ;
+  sh:targetClass dcai:CriticalityLevel ;
+  sh:targetClass dcai:OperationalStatus ;
+  sh:targetClass dcai:IncidentLifecycleState ;
+  sh:targetClass dcai:DependencyRole ;
+  sh:targetClass dcai:ImpactScope ;
+  sh:targetClass dcai:WorkflowEventStatus ;
+  sh:targetClass dcai:RedundancyState ;
+  sh:targetClass dcai:MitigationState ;
+  sh:targetClass dcai:VendorState ;
+  sh:targetClass dcai:EvidenceConfidenceState ;
+  sh:targetClass dcai:TelemetryStatus ;
+  sh:targetClass dcai:ValidationStatus ;
+  sh:targetClass dcai:WorkOrderStatus ;
+  sh:nodeKind sh:IRI ;
+  sh:not [ sh:class dcai:WorkflowStage ] ;
+  sh:xone (
+    [ sh:class dcai:CriticalityLevel ]
+    [ sh:class dcai:OperationalStatus ]
+    [ sh:class dcai:IncidentLifecycleState ]
+    [ sh:class dcai:DependencyRole ]
+    [ sh:class dcai:ImpactScope ]
+    [ sh:class dcai:WorkflowEventStatus ]
+    [ sh:class dcai:RedundancyState ]
+    [ sh:class dcai:MitigationState ]
+    [ sh:class dcai:VendorState ]
+    [ sh:class dcai:EvidenceConfidenceState ]
+    [ sh:class dcai:TelemetryStatus ]
+    [ sh:class dcai:ValidationStatus ]
+    [ sh:class dcai:WorkOrderStatus ]
+  ) ;
+  sh:message "A controlled vocabulary resource must belong to exactly one authoritative category and must not be a WorkflowStage." .
+
+dcai:DeprecatedIncidentStageStateShape
+  a sh:NodeShape ;
+  sh:targetClass dcai:IncidentStageState ;
+  sh:not [ sh:class dcai:IncidentStageState ] ;
+  sh:message "IncidentStageState is deprecated; use WorkflowStage and IncidentLifecycleState separately." .

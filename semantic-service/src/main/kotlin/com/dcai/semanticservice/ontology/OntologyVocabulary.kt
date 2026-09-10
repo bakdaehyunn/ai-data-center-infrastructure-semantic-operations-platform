@@ -82,7 +82,7 @@ object Dcai {
 
     val CriticalityLevel = resource("CriticalityLevel")
     val OperationalStatus = resource("OperationalStatus")
-    val IncidentStageState = resource("IncidentStageState")
+    val IncidentLifecycleState = resource("IncidentLifecycleState")
     val WorkflowEventStatus = resource("WorkflowEventStatus")
     val DependencyRole = resource("DependencyRole")
     val ImpactScope = resource("ImpactScope")
@@ -115,7 +115,7 @@ object Dcai {
 
     val affectsAsset = property("affectsAsset")
     val hasCurrentStage = property("hasCurrentStage")
-    val hasIncidentStageState = property("hasIncidentStageState")
+    val hasIncidentLifecycleState = property("hasIncidentLifecycleState")
     val enteredStage = property("enteredStage")
     val eventForIncident = property("eventForIncident")
     val hasEventId = property("hasEventId")

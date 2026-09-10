@@ -3,6 +3,9 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix operational: <urn:dcai:state:operational-status:> .
+@prefix confidence: <urn:dcai:state:evidence-confidence:> .
+@prefix state: <urn:dcai:state:incident-lifecycle:> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 fixture:telemetry-source
@@ -36,14 +39,14 @@ fixture:gpu-rack-row-a
   dcai:hasIdentifier "ASSET-GPU-RACK-ROW-A" ;
   dcai:locatedIn fixture:zone-a ;
   dcai:hasAssetType "GPU_RACK_ROW" ;
-  dcai:hasOperationalStatus "DEGRADED" ;
-  dcai:hasOperationalState fixture:operational-status-degraded ;
+  dcai:hasOperationalStatus "degraded" ;
+  dcai:hasOperationalState operational:degraded ;
   prov:wasDerivedFrom fixture:source-record-evidence-0001 .
 
-fixture:operational-status-degraded
+operational:degraded
   rdf:type dcai:OperationalStatus ;
   dcai:hasIdentifier "degraded" ;
-  rdfs:label "DEGRADED" .
+  rdfs:label "degraded" .
 
 fixture:stage-repair
   rdf:type dcai:WorkflowStage ;
@@ -54,13 +57,13 @@ fixture:inc-0002
   dcai:hasIdentifier "INC-0002" ;
   dcai:affectsAsset fixture:gpu-rack-row-a ;
   dcai:hasCurrentStage fixture:stage-repair ;
-  dcai:hasIncidentStageState fixture:incident-stage-repair ;
+  dcai:hasIncidentLifecycleState state:in-progress ;
   prov:wasDerivedFrom fixture:source-record-evidence-0001 .
 
-fixture:incident-stage-repair
-  rdf:type dcai:IncidentStageState ;
-  dcai:hasIdentifier "repair" ;
-  rdfs:label "Repair in progress" .
+state:in-progress
+  rdf:type dcai:IncidentLifecycleState ;
+  dcai:hasIdentifier "in-progress" ;
+  rdfs:label "in-progress" .
 
 fixture:impact-0002
   rdf:type dcai:ImpactObservation ;
@@ -72,15 +75,15 @@ fixture:impact-0002
 fixture:telemetry-evidence-0002
   rdf:type dcai:TelemetryEvidence ;
   dcai:supportsFact fixture:impact-0002 ;
-  dcai:hasConfidenceState "TRUSTED" ;
-  dcai:hasEvidenceConfidence fixture:evidence-confidence-trusted ;
+  dcai:hasConfidenceState "trusted" ;
+  dcai:hasEvidenceConfidence confidence:trusted ;
   dcai:hasEvidenceTimestamp "2026-06-07T00:00:00Z"^^xsd:dateTime ;
   prov:wasDerivedFrom fixture:source-record-evidence-0001 .
 
-fixture:evidence-confidence-trusted
+confidence:trusted
   rdf:type dcai:EvidenceConfidenceState ;
   dcai:hasIdentifier "trusted" ;
-  rdfs:label "TRUSTED" .
+  rdfs:label "trusted" .
 
 fixture:trust-finding-0002
   rdf:type dcai:TrustFinding ;

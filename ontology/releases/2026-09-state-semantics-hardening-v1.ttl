@@ -1,0 +1,45 @@
+@prefix dcai-release: <urn:dcai:release:> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dcai-release:2026-09-state-semantics-hardening-v1
+  rdf:type owl:Ontology ;
+  dcterms:title "State semantics hardening v1 release" ;
+  dcterms:description "Local ontology contract hardening that separates workflow stage from incident lifecycle state, deprecates the duplicate incident-stage-state vocabulary, closes every canonical controlled vocabulary with OWL enumerations and matching SHACL allow-lists, declares categories disjoint, normalizes source spellings to canonical lowercase kebab-case, makes single-valued state properties functional, and validates literal-to-concept consistency. Existing recorded incident files remain readable because lifecycleState is optional at ingestion; when supplied it is independently mapped and restricted to in-progress or restored. This release does not expose endpoints, mutate deployed graphs, commit, push, or publish." ;
+  dcterms:created "2026-09-06"^^xsd:date ;
+  dcterms:requires dcai-release:2026-06-ai-data-center-operations-ontology-hardening-v1 ;
+  dcterms:hasPart
+    <../modules/state-vocabulary.ttl>,
+    <../modules/core.ttl>,
+    <../modules/infrastructure.ttl>,
+    <../modules/topology.ttl>,
+    <../modules/workflow.ttl>,
+    <../modules/impact.ttl>,
+    <../modules/evidence.ttl>,
+    <../modules/operations.ttl>,
+    <../../shapes/canonical-integrity.ttl>,
+    <../../shapes/workflow-transitions.ttl>,
+    <../../shapes/impact-evidence.ttl>,
+    <../../shapes/action-audit.ttl>,
+    <../../shapes/dynamic-playback.ttl>,
+    <../../shapes/reasoning-output-validation.ttl>,
+    <../../shapes/state-vocabulary.ttl>,
+    <../../shapes/topology-integrity.ttl>,
+    <../../queries/read-model/semantic_dashboard_overview.select.rq>,
+    <../../queries/read-model/semantic_impact_summary.select.rq>,
+    <../../semantic-service/src/main/kotlin/com/dcai/semanticservice/ingestion/SourceExtract.kt>,
+    <../../semantic-service/src/main/kotlin/com/dcai/semanticservice/ingestion/SourceExtractRdfMapper.kt>,
+    <../../semantic-service/src/main/kotlin/com/dcai/semanticservice/ontology/OntologyVocabulary.kt>,
+    <../../semantic-service/src/test/kotlin/com/dcai/semanticservice/promotion/ProductionGraphValidationGateTest.kt>,
+    <../../semantic-service/src/test/kotlin/com/dcai/semanticservice/validation/StateVocabularyContractTest.kt>,
+    <../../semantic-service/src/test/kotlin/com/dcai/semanticservice/validation/OntologyAuthorityBoundaryTest.kt>,
+    <../../fixtures/source-extracts/README.md>,
+    <../../docs/ontology-native/recorded_source_connector_contract_v1.md>,
+    <../../docs/ontology-native/phase2_ontology_shacl_contract.md>,
+    <../../docs/13_ontology_native_target_architecture.md>,
+    <../../docs/capability_truth_ledger.md>,
+    <../modules/README.md>,
+    <../legacy/README.md>,
+    <../README.md> .

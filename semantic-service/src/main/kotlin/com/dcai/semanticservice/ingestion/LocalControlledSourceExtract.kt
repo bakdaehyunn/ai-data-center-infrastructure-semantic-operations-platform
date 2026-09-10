@@ -65,6 +65,7 @@ object LocalControlledSourceExtract {
                     assetId = "ASSET-GPU-RACK-ROW-A",
                     currentStageId = "VALIDATION",
                     currentStageLabel = "Validation",
+                    lifecycleState = IncidentLifecycleState.IN_PROGRESS,
                 ),
             ),
             dependencies = listOf(

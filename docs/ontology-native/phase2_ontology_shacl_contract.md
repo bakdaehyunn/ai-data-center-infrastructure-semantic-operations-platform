@@ -25,6 +25,10 @@ redesign, or old-runtime removal.
   proposed triple set, approval decision, and guardrail violation skeleton.
 - `ontology/modules/operations.ttl`: follow-up queue item, priority score,
   dependency impact, restore readiness, and blast-radius finding skeleton.
+- `ontology/modules/state-vocabulary.ttl`: OWL `oneOf` enumerations and explicit
+  distinctness for all controlled infrastructure, topology, workflow, impact,
+  and evidence vocabularies. Workflow stage and incident lifecycle state are
+  separate, disjoint concepts.
 
 ## SHACL Shape Skeletons
 
@@ -37,6 +41,9 @@ redesign, or old-runtime removal.
 - `shapes/topology-integrity.ttl`: dependency edge asset and role boundary.
 - `shapes/impact-evidence.ttl`: impact observation and evidence support or
   contradiction boundary.
+- `shapes/state-vocabulary.ttl`: closed vocabulary allow-lists, exactly-one
+  category enforcement, workflow-stage separation, and rejection of the
+  deprecated incident-stage-state vocabulary.
 - `shapes/provenance-required.ttl`: derived fact and operational entity
   provenance boundary.
 - `shapes/ai-proposed-write.ttl`: proposed triple set, validation shape, and

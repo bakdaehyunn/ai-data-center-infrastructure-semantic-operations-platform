@@ -39,10 +39,10 @@ dcai:supportsFact rdf:type owl:ObjectProperty ;
 dcai:contradictsFact rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:EvidenceRecord ;
   rdfs:range dcai:OperationalEntity .
-dcai:hasConfidenceState rdf:type owl:DatatypeProperty ;
+dcai:hasConfidenceState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:EvidenceArtifact ;
   rdfs:range xsd:string .
-dcai:hasEvidenceConfidence rdf:type owl:ObjectProperty ;
+dcai:hasEvidenceConfidence rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:EvidenceArtifact ;
   rdfs:range dcai:EvidenceConfidenceState .
 dcai:hasEvidenceSeverity rdf:type owl:DatatypeProperty ;
@@ -60,10 +60,10 @@ dcai:hasMetricValue rdf:type owl:DatatypeProperty ;
 dcai:hasMetricUnit rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:TelemetryEvidence ;
   rdfs:range xsd:string .
-dcai:hasTelemetryStatus rdf:type owl:DatatypeProperty ;
+dcai:hasTelemetryStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:TelemetryEvidence ;
   rdfs:range xsd:string .
-dcai:hasTelemetryState rdf:type owl:ObjectProperty ;
+dcai:hasTelemetryState rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:TelemetryEvidence ;
   rdfs:range dcai:TelemetryStatus .
 dcai:hasTelemetryAlertId rdf:type owl:DatatypeProperty ;
@@ -84,10 +84,10 @@ dcai:alertResolvedAt rdf:type owl:DatatypeProperty ;
 dcai:hasValidationId rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:ValidationEvidence ;
   rdfs:range xsd:string .
-dcai:hasValidationStatus rdf:type owl:DatatypeProperty ;
+dcai:hasValidationStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ValidationEvidence ;
   rdfs:range xsd:string .
-dcai:hasValidationState rdf:type owl:ObjectProperty ;
+dcai:hasValidationState rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ValidationEvidence ;
   rdfs:range dcai:ValidationStatus .
 dcai:hasValidatorId rdf:type owl:DatatypeProperty ;
@@ -111,10 +111,10 @@ dcai:hasAssignedTeam rdf:type owl:DatatypeProperty ;
 dcai:hasAssignedEngineerId rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:WorkOrderEvidence ;
   rdfs:range xsd:string .
-dcai:hasWorkOrderStatus rdf:type owl:DatatypeProperty ;
+dcai:hasWorkOrderStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:WorkOrderEvidence ;
   rdfs:range xsd:string .
-dcai:hasWorkOrderState rdf:type owl:ObjectProperty ;
+dcai:hasWorkOrderState rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:WorkOrderEvidence ;
   rdfs:range dcai:WorkOrderStatus .
 dcai:plannedStartAt rdf:type owl:DatatypeProperty ;

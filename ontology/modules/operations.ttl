@@ -53,7 +53,7 @@ dcai:hasPriorityRank rdf:type owl:DatatypeProperty ;
 dcai:hasRequestTitle rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:FollowUpQueueItem ;
   rdfs:range xsd:string .
-dcai:hasCurrentStatus rdf:type owl:DatatypeProperty ;
+dcai:hasCurrentStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:FollowUpQueueItem ;
   rdfs:range xsd:string .
 dcai:hoursInCurrentStage rdf:type owl:DatatypeProperty ;
@@ -116,16 +116,16 @@ dcai:hasFindingSummary rdf:type owl:DatatypeProperty ;
 dcai:hasActionType rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:OntologyActionExecution ;
   rdfs:range dcai:OntologyActionType .
-dcai:hasActionStatus rdf:type owl:DatatypeProperty ;
+dcai:hasActionStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionExecution ;
   rdfs:range xsd:string .
-dcai:hasNotificationStatus rdf:type owl:DatatypeProperty ;
+dcai:hasNotificationStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionNotification ;
   rdfs:range xsd:string .
-dcai:hasFromActionState rdf:type owl:DatatypeProperty ;
+dcai:hasFromActionState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionStateTransition ;
   rdfs:range xsd:string .
-dcai:hasToActionState rdf:type owl:DatatypeProperty ;
+dcai:hasToActionState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionStateTransition ;
   rdfs:range xsd:string .
 dcai:hasTransitionReason rdf:type owl:DatatypeProperty ;
@@ -134,13 +134,13 @@ dcai:hasTransitionReason rdf:type owl:DatatypeProperty ;
 dcai:hasDispatchChannel rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:OntologyActionDispatch ;
   rdfs:range xsd:string .
-dcai:hasDispatchStatus rdf:type owl:DatatypeProperty ;
+dcai:hasDispatchStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionDispatch ;
   rdfs:range xsd:string .
 dcai:hasDispatchSummary rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:OntologyActionDispatch ;
   rdfs:range xsd:string .
-dcai:hasDispatchLifecycleState rdf:type owl:DatatypeProperty ;
+dcai:hasDispatchLifecycleState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:OntologyActionDispatch ;
   rdfs:range xsd:string .
 dcai:hasActionReason rdf:type owl:DatatypeProperty ;
@@ -155,7 +155,7 @@ dcai:hasIdempotencyKey rdf:type owl:DatatypeProperty ;
   rdfs:range xsd:string .
 dcai:hasTargetObject rdf:type owl:ObjectProperty ;
   rdfs:range owl:Thing .
-dcai:hasActionValidationStatus rdf:type owl:DatatypeProperty ;
+dcai:hasActionValidationStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ActionValidationReport ;
   rdfs:range xsd:string .
 dcai:hasReviewedStatus rdf:type owl:DatatypeProperty ;
@@ -180,22 +180,22 @@ dcai:hasEventKind rdf:type owl:DatatypeProperty ;
 dcai:hasSourceFamily rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasBeforeState rdf:type owl:DatatypeProperty ;
+dcai:hasBeforeState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasAfterState rdf:type owl:DatatypeProperty ;
+dcai:hasAfterState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasBeforeReasoningState rdf:type owl:DatatypeProperty ;
+dcai:hasBeforeReasoningState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasAfterReasoningState rdf:type owl:DatatypeProperty ;
+dcai:hasAfterReasoningState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasBeforeTrustState rdf:type owl:DatatypeProperty ;
+dcai:hasBeforeTrustState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
-dcai:hasAfterTrustState rdf:type owl:DatatypeProperty ;
+dcai:hasAfterTrustState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .
 dcai:hasBeforeBlastRadiusCount rdf:type owl:DatatypeProperty ;
@@ -204,6 +204,6 @@ dcai:hasBeforeBlastRadiusCount rdf:type owl:DatatypeProperty ;
 dcai:hasAfterBlastRadiusCount rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:integer .
-dcai:hasActionLifecycleState rdf:type owl:DatatypeProperty ;
+dcai:hasActionLifecycleState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DynamicPlaybackEvent ;
   rdfs:range xsd:string .

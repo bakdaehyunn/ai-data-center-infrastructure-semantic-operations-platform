@@ -1,0 +1,265 @@
+@prefix dcai: <urn:dcai:ontology:> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix criticality: <urn:dcai:state:criticality:> .
+@prefix operational: <urn:dcai:state:operational-status:> .
+@prefix lifecycle: <urn:dcai:state:incident-lifecycle:> .
+@prefix dependencyRole: <urn:dcai:state:dependency-role:> .
+@prefix impactScope: <urn:dcai:state:impact-scope:> .
+@prefix workflowStatus: <urn:dcai:state:workflow-event-status:> .
+@prefix redundancy: <urn:dcai:state:redundancy-state:> .
+@prefix mitigation: <urn:dcai:state:mitigation-state:> .
+@prefix vendor: <urn:dcai:state:vendor-state:> .
+@prefix confidence: <urn:dcai:state:evidence-confidence:> .
+@prefix telemetry: <urn:dcai:state:telemetry-status:> .
+@prefix validation: <urn:dcai:state:validation-status:> .
+@prefix workOrder: <urn:dcai:state:work-order-status:> .
+
+dcai:state-vocabulary
+  rdf:type owl:Ontology ;
+  dcterms:title "DCAI controlled state vocabulary module" ;
+  dcterms:description "Authoritative closed vocabularies for canonical infrastructure, topology, workflow, impact, and evidence state concepts. Canonical codes use lowercase kebab-case; source-system spelling is normalized during promotion." ;
+  owl:imports dcai:core, dcai:infrastructure, dcai:topology, dcai:workflow, dcai:impact, dcai:evidence ;
+  owl:versionInfo "2026-09-state-semantics-hardening-v1" .
+
+dcai:CriticalityLevel owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf ( criticality:critical criticality:high ) ] .
+dcai:OperationalStatus owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  operational:alerting operational:at-risk operational:degraded operational:gap
+  operational:monitor operational:recovering operational:running operational:stable
+) ] .
+dcai:IncidentLifecycleState owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf ( lifecycle:in-progress lifecycle:restored ) ] .
+dcai:DependencyRole owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  dependencyRole:cooling-loop dependencyRole:cooling-supply dependencyRole:power-feed
+  dependencyRole:power-supply dependencyRole:telemetry-source dependencyRole:upstream-gpu-fabric
+) ] .
+dcai:ImpactScope owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  impactScope:downstream-rack-row impactScope:gpu-pod impactScope:pod
+  impactScope:rack-group impactScope:rack-row impactScope:row
+) ] .
+dcai:WorkflowEventStatus owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  workflowStatus:active workflowStatus:blocked workflowStatus:complete
+  workflowStatus:completed workflowStatus:delayed workflowStatus:open workflowStatus:ready
+) ] .
+dcai:RedundancyState owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  redundancy:n-1 redundancy:n-plus-0 redundancy:n-plus-1 redundancy:nominal
+) ] .
+dcai:MitigationState owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  mitigation:awaiting-signoff mitigation:capacity-buffer-reduced mitigation:capacity-watch
+  mitigation:dispatch-pending mitigation:evidence-review mitigation:fan-curve-adjusted
+  mitigation:load-shed-active mitigation:manual-mitigation-active mitigation:manual-sampling-active
+  mitigation:mitigated mitigation:not-started mitigation:pending-verification mitigation:restore-blocked
+  mitigation:running-degraded mitigation:telemetry-replay-pending mitigation:thermal-throttle-active
+  mitigation:validation-hold mitigation:workload-evacuation-active
+) ] .
+dcai:VendorState owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  vendor:eta-met vendor:eta-missed vendor:eta-pending vendor:monitoring vendor:parts-review vendor:vendor-engaged
+) ] .
+dcai:EvidenceConfidenceState owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  confidence:conflicted confidence:low-confidence confidence:review confidence:review-required confidence:trusted
+) ] .
+dcai:TelemetryStatus owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  telemetry:alerting telemetry:conflict telemetry:critical telemetry:degraded telemetry:gap
+  telemetry:missing-gap telemetry:normal telemetry:recovering telemetry:warning
+) ] .
+dcai:ValidationStatus owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  validation:awaiting-temperature-stabilization validation:awaiting-transfer-test
+  validation:blast-radius-review-required validation:blocked validation:conflicting
+  validation:cooling-loop-confirmed validation:failed validation:field-dispatch-needed
+  validation:manual-confirmation-required validation:missing-final-validation validation:passed
+  validation:power-path-confirmed validation:primary-validation-pass validation:recovery-blocked-by-telemetry
+  validation:repair-window-delayed validation:repeat-failure-observed validation:restore-readiness-blocked
+  validation:secondary-validation-conflict validation:telemetry-gap-detected
+) ] .
+dcai:WorkOrderStatus owl:equivalentClass [ rdf:type owl:Class ; owl:oneOf (
+  workOrder:assigned workOrder:awaiting-assignment workOrder:awaiting-signoff workOrder:blocked
+  workOrder:capacity-review workOrder:completed workOrder:conflict-review workOrder:delayed
+  workOrder:dispatched workOrder:in-progress workOrder:manual-review workOrder:pending-verification
+  workOrder:requested workOrder:waiting-spare-vendor workOrder:waiting-vendor
+) ] .
+
+criticality:critical rdf:type dcai:CriticalityLevel ; dcai:hasIdentifier "critical" ; rdfs:label "critical" .
+criticality:high rdf:type dcai:CriticalityLevel ; dcai:hasIdentifier "high" ; rdfs:label "high" .
+
+operational:alerting rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "alerting" ; rdfs:label "alerting" .
+operational:at-risk rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "at-risk" ; rdfs:label "at-risk" .
+operational:degraded rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "degraded" ; rdfs:label "degraded" .
+operational:gap rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "gap" ; rdfs:label "gap" .
+operational:monitor rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "monitor" ; rdfs:label "monitor" .
+operational:recovering rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "recovering" ; rdfs:label "recovering" .
+operational:running rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "running" ; rdfs:label "running" .
+operational:stable rdf:type dcai:OperationalStatus ; dcai:hasIdentifier "stable" ; rdfs:label "stable" .
+
+lifecycle:in-progress rdf:type dcai:IncidentLifecycleState ; dcai:hasIdentifier "in-progress" ; rdfs:label "in-progress" .
+lifecycle:restored rdf:type dcai:IncidentLifecycleState ; dcai:hasIdentifier "restored" ; rdfs:label "restored" .
+
+dependencyRole:cooling-loop rdf:type dcai:DependencyRole ; dcai:hasIdentifier "cooling-loop" ; rdfs:label "cooling-loop" .
+dependencyRole:cooling-supply rdf:type dcai:DependencyRole ; dcai:hasIdentifier "cooling-supply" ; rdfs:label "cooling-supply" .
+dependencyRole:power-feed rdf:type dcai:DependencyRole ; dcai:hasIdentifier "power-feed" ; rdfs:label "power-feed" .
+dependencyRole:power-supply rdf:type dcai:DependencyRole ; dcai:hasIdentifier "power-supply" ; rdfs:label "power-supply" .
+dependencyRole:telemetry-source rdf:type dcai:DependencyRole ; dcai:hasIdentifier "telemetry-source" ; rdfs:label "telemetry-source" .
+dependencyRole:upstream-gpu-fabric rdf:type dcai:DependencyRole ; dcai:hasIdentifier "upstream-gpu-fabric" ; rdfs:label "upstream-gpu-fabric" .
+
+impactScope:downstream-rack-row rdf:type dcai:ImpactScope ; dcai:hasIdentifier "downstream-rack-row" ; rdfs:label "downstream-rack-row" .
+impactScope:gpu-pod rdf:type dcai:ImpactScope ; dcai:hasIdentifier "gpu-pod" ; rdfs:label "gpu-pod" .
+impactScope:pod rdf:type dcai:ImpactScope ; dcai:hasIdentifier "pod" ; rdfs:label "pod" .
+impactScope:rack-group rdf:type dcai:ImpactScope ; dcai:hasIdentifier "rack-group" ; rdfs:label "rack-group" .
+impactScope:rack-row rdf:type dcai:ImpactScope ; dcai:hasIdentifier "rack-row" ; rdfs:label "rack-row" .
+impactScope:row rdf:type dcai:ImpactScope ; dcai:hasIdentifier "row" ; rdfs:label "row" .
+
+workflowStatus:active rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "active" ; rdfs:label "active" .
+workflowStatus:blocked rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "blocked" ; rdfs:label "blocked" .
+workflowStatus:complete rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "complete" ; rdfs:label "complete" .
+workflowStatus:completed rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "completed" ; rdfs:label "completed" .
+workflowStatus:delayed rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "delayed" ; rdfs:label "delayed" .
+workflowStatus:open rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "open" ; rdfs:label "open" .
+workflowStatus:ready rdf:type dcai:WorkflowEventStatus ; dcai:hasIdentifier "ready" ; rdfs:label "ready" .
+
+redundancy:n-1 rdf:type dcai:RedundancyState ; dcai:hasIdentifier "n-1" ; rdfs:label "n-1" .
+redundancy:n-plus-0 rdf:type dcai:RedundancyState ; dcai:hasIdentifier "n-plus-0" ; rdfs:label "n-plus-0" .
+redundancy:n-plus-1 rdf:type dcai:RedundancyState ; dcai:hasIdentifier "n-plus-1" ; rdfs:label "n-plus-1" .
+redundancy:nominal rdf:type dcai:RedundancyState ; dcai:hasIdentifier "nominal" ; rdfs:label "nominal" .
+
+mitigation:awaiting-signoff rdf:type dcai:MitigationState ; dcai:hasIdentifier "awaiting-signoff" ; rdfs:label "awaiting-signoff" .
+mitigation:capacity-buffer-reduced rdf:type dcai:MitigationState ; dcai:hasIdentifier "capacity-buffer-reduced" ; rdfs:label "capacity-buffer-reduced" .
+mitigation:capacity-watch rdf:type dcai:MitigationState ; dcai:hasIdentifier "capacity-watch" ; rdfs:label "capacity-watch" .
+mitigation:dispatch-pending rdf:type dcai:MitigationState ; dcai:hasIdentifier "dispatch-pending" ; rdfs:label "dispatch-pending" .
+mitigation:evidence-review rdf:type dcai:MitigationState ; dcai:hasIdentifier "evidence-review" ; rdfs:label "evidence-review" .
+mitigation:fan-curve-adjusted rdf:type dcai:MitigationState ; dcai:hasIdentifier "fan-curve-adjusted" ; rdfs:label "fan-curve-adjusted" .
+mitigation:load-shed-active rdf:type dcai:MitigationState ; dcai:hasIdentifier "load-shed-active" ; rdfs:label "load-shed-active" .
+mitigation:manual-mitigation-active rdf:type dcai:MitigationState ; dcai:hasIdentifier "manual-mitigation-active" ; rdfs:label "manual-mitigation-active" .
+mitigation:manual-sampling-active rdf:type dcai:MitigationState ; dcai:hasIdentifier "manual-sampling-active" ; rdfs:label "manual-sampling-active" .
+mitigation:mitigated rdf:type dcai:MitigationState ; dcai:hasIdentifier "mitigated" ; rdfs:label "mitigated" .
+mitigation:not-started rdf:type dcai:MitigationState ; dcai:hasIdentifier "not-started" ; rdfs:label "not-started" .
+mitigation:pending-verification rdf:type dcai:MitigationState ; dcai:hasIdentifier "pending-verification" ; rdfs:label "pending-verification" .
+mitigation:restore-blocked rdf:type dcai:MitigationState ; dcai:hasIdentifier "restore-blocked" ; rdfs:label "restore-blocked" .
+mitigation:running-degraded rdf:type dcai:MitigationState ; dcai:hasIdentifier "running-degraded" ; rdfs:label "running-degraded" .
+mitigation:telemetry-replay-pending rdf:type dcai:MitigationState ; dcai:hasIdentifier "telemetry-replay-pending" ; rdfs:label "telemetry-replay-pending" .
+mitigation:thermal-throttle-active rdf:type dcai:MitigationState ; dcai:hasIdentifier "thermal-throttle-active" ; rdfs:label "thermal-throttle-active" .
+mitigation:validation-hold rdf:type dcai:MitigationState ; dcai:hasIdentifier "validation-hold" ; rdfs:label "validation-hold" .
+mitigation:workload-evacuation-active rdf:type dcai:MitigationState ; dcai:hasIdentifier "workload-evacuation-active" ; rdfs:label "workload-evacuation-active" .
+
+vendor:eta-met rdf:type dcai:VendorState ; dcai:hasIdentifier "eta-met" ; rdfs:label "eta-met" .
+vendor:eta-missed rdf:type dcai:VendorState ; dcai:hasIdentifier "eta-missed" ; rdfs:label "eta-missed" .
+vendor:eta-pending rdf:type dcai:VendorState ; dcai:hasIdentifier "eta-pending" ; rdfs:label "eta-pending" .
+vendor:monitoring rdf:type dcai:VendorState ; dcai:hasIdentifier "monitoring" ; rdfs:label "monitoring" .
+vendor:parts-review rdf:type dcai:VendorState ; dcai:hasIdentifier "parts-review" ; rdfs:label "parts-review" .
+vendor:vendor-engaged rdf:type dcai:VendorState ; dcai:hasIdentifier "vendor-engaged" ; rdfs:label "vendor-engaged" .
+
+confidence:conflicted rdf:type dcai:EvidenceConfidenceState ; dcai:hasIdentifier "conflicted" ; rdfs:label "conflicted" .
+confidence:low-confidence rdf:type dcai:EvidenceConfidenceState ; dcai:hasIdentifier "low-confidence" ; rdfs:label "low-confidence" .
+confidence:review rdf:type dcai:EvidenceConfidenceState ; dcai:hasIdentifier "review" ; rdfs:label "review" .
+confidence:review-required rdf:type dcai:EvidenceConfidenceState ; dcai:hasIdentifier "review-required" ; rdfs:label "review-required" .
+confidence:trusted rdf:type dcai:EvidenceConfidenceState ; dcai:hasIdentifier "trusted" ; rdfs:label "trusted" .
+
+telemetry:alerting rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "alerting" ; rdfs:label "alerting" .
+telemetry:conflict rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "conflict" ; rdfs:label "conflict" .
+telemetry:critical rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "critical" ; rdfs:label "critical" .
+telemetry:degraded rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "degraded" ; rdfs:label "degraded" .
+telemetry:gap rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "gap" ; rdfs:label "gap" .
+telemetry:missing-gap rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "missing-gap" ; rdfs:label "missing-gap" .
+telemetry:normal rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "normal" ; rdfs:label "normal" .
+telemetry:recovering rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "recovering" ; rdfs:label "recovering" .
+telemetry:warning rdf:type dcai:TelemetryStatus ; dcai:hasIdentifier "warning" ; rdfs:label "warning" .
+
+validation:awaiting-temperature-stabilization rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "awaiting-temperature-stabilization" ; rdfs:label "awaiting-temperature-stabilization" .
+validation:awaiting-transfer-test rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "awaiting-transfer-test" ; rdfs:label "awaiting-transfer-test" .
+validation:blast-radius-review-required rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "blast-radius-review-required" ; rdfs:label "blast-radius-review-required" .
+validation:blocked rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "blocked" ; rdfs:label "blocked" .
+validation:conflicting rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "conflicting" ; rdfs:label "conflicting" .
+validation:cooling-loop-confirmed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "cooling-loop-confirmed" ; rdfs:label "cooling-loop-confirmed" .
+validation:failed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "failed" ; rdfs:label "failed" .
+validation:field-dispatch-needed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "field-dispatch-needed" ; rdfs:label "field-dispatch-needed" .
+validation:manual-confirmation-required rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "manual-confirmation-required" ; rdfs:label "manual-confirmation-required" .
+validation:missing-final-validation rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "missing-final-validation" ; rdfs:label "missing-final-validation" .
+validation:passed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "passed" ; rdfs:label "passed" .
+validation:power-path-confirmed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "power-path-confirmed" ; rdfs:label "power-path-confirmed" .
+validation:primary-validation-pass rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "primary-validation-pass" ; rdfs:label "primary-validation-pass" .
+validation:recovery-blocked-by-telemetry rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "recovery-blocked-by-telemetry" ; rdfs:label "recovery-blocked-by-telemetry" .
+validation:repair-window-delayed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "repair-window-delayed" ; rdfs:label "repair-window-delayed" .
+validation:repeat-failure-observed rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "repeat-failure-observed" ; rdfs:label "repeat-failure-observed" .
+validation:restore-readiness-blocked rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "restore-readiness-blocked" ; rdfs:label "restore-readiness-blocked" .
+validation:secondary-validation-conflict rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "secondary-validation-conflict" ; rdfs:label "secondary-validation-conflict" .
+validation:telemetry-gap-detected rdf:type dcai:ValidationStatus ; dcai:hasIdentifier "telemetry-gap-detected" ; rdfs:label "telemetry-gap-detected" .
+
+workOrder:assigned rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "assigned" ; rdfs:label "assigned" .
+workOrder:awaiting-assignment rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "awaiting-assignment" ; rdfs:label "awaiting-assignment" .
+workOrder:awaiting-signoff rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "awaiting-signoff" ; rdfs:label "awaiting-signoff" .
+workOrder:blocked rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "blocked" ; rdfs:label "blocked" .
+workOrder:capacity-review rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "capacity-review" ; rdfs:label "capacity-review" .
+workOrder:completed rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "completed" ; rdfs:label "completed" .
+workOrder:conflict-review rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "conflict-review" ; rdfs:label "conflict-review" .
+workOrder:delayed rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "delayed" ; rdfs:label "delayed" .
+workOrder:dispatched rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "dispatched" ; rdfs:label "dispatched" .
+workOrder:in-progress rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "in-progress" ; rdfs:label "in-progress" .
+workOrder:manual-review rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "manual-review" ; rdfs:label "manual-review" .
+workOrder:pending-verification rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "pending-verification" ; rdfs:label "pending-verification" .
+workOrder:requested rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "requested" ; rdfs:label "requested" .
+workOrder:waiting-spare-vendor rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "waiting-spare-vendor" ; rdfs:label "waiting-spare-vendor" .
+workOrder:waiting-vendor rdf:type dcai:WorkOrderStatus ; dcai:hasIdentifier "waiting-vendor" ; rdfs:label "waiting-vendor" .
+
+# OWL has no unique-name assumption, so each enumeration explicitly states that
+# its named members denote different individuals.
+[] rdf:type owl:AllDifferent ; owl:distinctMembers ( criticality:critical criticality:high ) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  operational:alerting operational:at-risk operational:degraded operational:gap
+  operational:monitor operational:recovering operational:running operational:stable
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers ( lifecycle:in-progress lifecycle:restored ) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  dependencyRole:cooling-loop dependencyRole:cooling-supply dependencyRole:power-feed
+  dependencyRole:power-supply dependencyRole:telemetry-source dependencyRole:upstream-gpu-fabric
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  impactScope:downstream-rack-row impactScope:gpu-pod impactScope:pod
+  impactScope:rack-group impactScope:rack-row impactScope:row
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  workflowStatus:active workflowStatus:blocked workflowStatus:complete
+  workflowStatus:completed workflowStatus:delayed workflowStatus:open workflowStatus:ready
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  redundancy:n-1 redundancy:n-plus-0 redundancy:n-plus-1 redundancy:nominal
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  mitigation:awaiting-signoff mitigation:capacity-buffer-reduced mitigation:capacity-watch
+  mitigation:dispatch-pending mitigation:evidence-review mitigation:fan-curve-adjusted
+  mitigation:load-shed-active mitigation:manual-mitigation-active mitigation:manual-sampling-active
+  mitigation:mitigated mitigation:not-started mitigation:pending-verification mitigation:restore-blocked
+  mitigation:running-degraded mitigation:telemetry-replay-pending mitigation:thermal-throttle-active
+  mitigation:validation-hold mitigation:workload-evacuation-active
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  vendor:eta-met vendor:eta-missed vendor:eta-pending vendor:monitoring vendor:parts-review vendor:vendor-engaged
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  confidence:conflicted confidence:low-confidence confidence:review confidence:review-required confidence:trusted
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  telemetry:alerting telemetry:conflict telemetry:critical telemetry:degraded telemetry:gap
+  telemetry:missing-gap telemetry:normal telemetry:recovering telemetry:warning
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  validation:awaiting-temperature-stabilization validation:awaiting-transfer-test
+  validation:blast-radius-review-required validation:blocked validation:conflicting
+  validation:cooling-loop-confirmed validation:failed validation:field-dispatch-needed
+  validation:manual-confirmation-required validation:missing-final-validation validation:passed
+  validation:power-path-confirmed validation:primary-validation-pass validation:recovery-blocked-by-telemetry
+  validation:repair-window-delayed validation:repeat-failure-observed validation:restore-readiness-blocked
+  validation:secondary-validation-conflict validation:telemetry-gap-detected
+) .
+[] rdf:type owl:AllDifferent ; owl:distinctMembers (
+  workOrder:assigned workOrder:awaiting-assignment workOrder:awaiting-signoff workOrder:blocked
+  workOrder:capacity-review workOrder:completed workOrder:conflict-review workOrder:delayed
+  workOrder:dispatched workOrder:in-progress workOrder:manual-review workOrder:pending-verification
+  workOrder:requested workOrder:waiting-spare-vendor workOrder:waiting-vendor
+) .
+
+[] rdf:type owl:AllDisjointClasses ;
+  owl:members (
+    dcai:WorkflowStage dcai:IncidentStageState dcai:CriticalityLevel dcai:OperationalStatus
+    dcai:IncidentLifecycleState dcai:DependencyRole dcai:ImpactScope dcai:WorkflowEventStatus
+    dcai:RedundancyState dcai:MitigationState dcai:VendorState dcai:EvidenceConfidenceState
+    dcai:TelemetryStatus dcai:ValidationStatus dcai:WorkOrderStatus
+  ) .

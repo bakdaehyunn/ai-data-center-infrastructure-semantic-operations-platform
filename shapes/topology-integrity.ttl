@@ -1,4 +1,5 @@
 @prefix dcai: <urn:dcai:ontology:> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -20,22 +21,36 @@ dcai:DependencyEdgeShape
   sh:property [
     sh:path dcai:hasDependencyRole ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string
   ] ;
   sh:property [
     sh:path dcai:hasDependencyRoleConcept ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:class dcai:DependencyRole
   ] ;
   sh:property [
     sh:path dcai:hasImpactScope ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string
   ] ;
   sh:property [
     sh:path dcai:hasImpactScopeConcept ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:class dcai:ImpactScope
+  ] ;
+  sh:property [
+    sh:path ( dcai:hasDependencyRoleConcept rdfs:label ) ;
+    sh:equals dcai:hasDependencyRole ;
+    sh:message "hasDependencyRole must equal the canonical label of hasDependencyRoleConcept."
+  ] ;
+  sh:property [
+    sh:path ( dcai:hasImpactScopeConcept rdfs:label ) ;
+    sh:equals dcai:hasImpactScope ;
+    sh:message "hasImpactScope must equal the canonical label of hasImpactScopeConcept."
   ] .
 
 dcai:DependencyPathShape

@@ -61,6 +61,7 @@ class FileSourceExtractLoader {
                     assetId = required("$prefix.assetId"),
                     currentStageId = required("$prefix.currentStageId"),
                     currentStageLabel = required("$prefix.currentStageLabel"),
+                    lifecycleState = enumOptional<IncidentLifecycleState>("$prefix.lifecycleState"),
                 )
             },
             dependencies = properties.records("dependencies") { prefix ->

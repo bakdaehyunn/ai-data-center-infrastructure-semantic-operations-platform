@@ -89,6 +89,16 @@ quarantined in the connector load report and are not promoted. Accepted rows are
 deterministic across reruns because source record IDs and payload hashes are
 derived from stable local fixture content.
 
+`incidents.csv` may include `lifecycleState` with `IN_PROGRESS` or `RESTORED`.
+It is independent from `currentStageId`; the mapper never derives one from the
+other. The field is optional so earlier recorded snapshots remain readable, while
+newly generated scenarios include it explicitly.
+
+All controlled source values are canonicalized to lowercase kebab-case during
+RDF promotion. Case and separator variants therefore resolve to one semantic
+IRI, while any normalized code absent from the closed OWL/SHACL vocabulary is
+rejected by the production validation gate.
+
 Promote the recorded local export through the internal CLI:
 
 ```bash

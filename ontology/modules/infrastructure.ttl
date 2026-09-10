@@ -82,15 +82,15 @@ dcai:assetInCapacityGroup rdf:type owl:ObjectProperty ;
 dcai:hasAssetType rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:InfrastructureAsset ;
   rdfs:range xsd:string .
-dcai:hasCriticalityLevel rdf:type owl:DatatypeProperty ;
+dcai:hasCriticalityLevel rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:InfrastructureAsset ;
   rdfs:range xsd:string .
-dcai:hasCriticality rdf:type owl:ObjectProperty ;
+dcai:hasCriticality rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:InfrastructureAsset ;
   rdfs:range dcai:CriticalityLevel .
-dcai:hasOperationalStatus rdf:type owl:DatatypeProperty ;
+dcai:hasOperationalStatus rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:InfrastructureEntity ;
   rdfs:range xsd:string .
-dcai:hasOperationalState rdf:type owl:ObjectProperty ;
+dcai:hasOperationalState rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:InfrastructureEntity ;
   rdfs:range dcai:OperationalStatus .

@@ -3,6 +3,9 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix operational: <urn:dcai:state:operational-status:> .
+@prefix dependencyRole: <urn:dcai:state:dependency-role:> .
+@prefix impactScope: <urn:dcai:state:impact-scope:> .
 
 fixture:topology-source
   rdf:type dcai:SourceSystem ;
@@ -29,8 +32,8 @@ fixture:gpu-rack-row-a
   dcai:hasIdentifier "ASSET-GPU-RACK-ROW-A" ;
   dcai:locatedIn fixture:zone-a ;
   dcai:hasAssetType "GPU_RACK_ROW" ;
-  dcai:hasOperationalStatus "DEGRADED" ;
-  dcai:hasOperationalState fixture:operational-status-degraded ;
+  dcai:hasOperationalStatus "degraded" ;
+  dcai:hasOperationalState operational:degraded ;
   prov:wasDerivedFrom fixture:source-record-topology-0001 .
 
 fixture:rack-pdu-a
@@ -38,40 +41,40 @@ fixture:rack-pdu-a
   dcai:hasIdentifier "ASSET-RACK-PDU-A" ;
   dcai:locatedIn fixture:zone-a ;
   dcai:hasAssetType "RACK_PDU" ;
-  dcai:hasOperationalStatus "RUNNING" ;
-  dcai:hasOperationalState fixture:operational-status-running ;
+  dcai:hasOperationalStatus "running" ;
+  dcai:hasOperationalState operational:running ;
   prov:wasDerivedFrom fixture:source-record-topology-0001 .
 
-fixture:operational-status-degraded
+operational:degraded
   rdf:type dcai:OperationalStatus ;
   dcai:hasIdentifier "degraded" ;
-  rdfs:label "DEGRADED" .
+  rdfs:label "degraded" .
 
-fixture:operational-status-running
+operational:running
   rdf:type dcai:OperationalStatus ;
   dcai:hasIdentifier "running" ;
-  rdfs:label "RUNNING" .
+  rdfs:label "running" .
 
 fixture:edge-rack-to-pdu
   rdf:type dcai:DependencyEdge ;
   dcai:hasIdentifier "EDGE-RACK-PDU-A" ;
   dcai:hasDependentAsset fixture:gpu-rack-row-a ;
   dcai:hasDependencyAsset fixture:rack-pdu-a ;
-  dcai:hasDependencyRole "POWER_SUPPLY" ;
-  dcai:hasDependencyRoleConcept fixture:dependency-role-power-supply ;
-  dcai:hasImpactScope "RACK_ROW" ;
-  dcai:hasImpactScopeConcept fixture:impact-scope-rack-row ;
+  dcai:hasDependencyRole "power-supply" ;
+  dcai:hasDependencyRoleConcept dependencyRole:power-supply ;
+  dcai:hasImpactScope "rack-row" ;
+  dcai:hasImpactScopeConcept impactScope:rack-row ;
   prov:wasDerivedFrom fixture:source-record-topology-0001 .
 
-fixture:dependency-role-power-supply
+dependencyRole:power-supply
   rdf:type dcai:DependencyRole ;
   dcai:hasIdentifier "power-supply" ;
-  rdfs:label "POWER_SUPPLY" .
+  rdfs:label "power-supply" .
 
-fixture:impact-scope-rack-row
+impactScope:rack-row
   rdf:type dcai:ImpactScope ;
   dcai:hasIdentifier "rack-row" ;
-  rdfs:label "RACK_ROW" .
+  rdfs:label "rack-row" .
 
 fixture:power-path-a
   rdf:type dcai:PowerPath ;

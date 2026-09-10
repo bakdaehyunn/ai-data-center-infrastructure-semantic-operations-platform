@@ -1,5 +1,6 @@
 package com.dcai.semanticservice.connectors
 
+import com.dcai.semanticservice.ingestion.IncidentLifecycleState
 import com.dcai.semanticservice.runtime.SemanticServiceComposition
 import java.nio.file.Files
 import java.nio.file.Path
@@ -26,6 +27,7 @@ class RecordedSourceConnectorSimulationLoaderTest {
         assertEquals(3, batch.zones.size)
         assertEquals(4, batch.assets.size)
         assertEquals(2, batch.incidents.size)
+        assertTrue(batch.incidents.all { it.lifecycleState == IncidentLifecycleState.IN_PROGRESS })
         assertEquals(3, batch.dependencies.size)
         assertEquals(2, batch.workflowEvents.size)
         assertEquals(6, batch.evidence.size)

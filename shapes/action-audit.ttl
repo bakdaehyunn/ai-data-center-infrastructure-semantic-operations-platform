@@ -57,7 +57,9 @@ dcai:OntologyActionExecutionShape
   sh:property [
     sh:path dcai:hasActionStatus ;
     sh:minCount 1 ;
-    sh:datatype xsd:string
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ( "REQUESTED" "VALIDATED" "QUEUED" "IN_REVIEW" "APPROVED" "REJECTED" "CLOSED" )
   ] ;
   sh:property [
     sh:path dcai:hasTargetObject ;
@@ -83,7 +85,9 @@ dcai:ActionValidationReportShape
   sh:property [
     sh:path dcai:hasActionValidationStatus ;
     sh:minCount 1 ;
-    sh:datatype xsd:string
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ( "CONFORMS" )
   ] ;
   sh:property [
     sh:path prov:wasGeneratedBy ;
@@ -111,7 +115,9 @@ dcai:OntologyActionNotificationShape
   sh:property [
     sh:path dcai:hasNotificationStatus ;
     sh:minCount 1 ;
-    sh:datatype xsd:string
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ( "REQUESTED" "VALIDATED" "QUEUED" "IN_REVIEW" "APPROVED" "REJECTED" "CLOSED" )
   ] ;
   sh:property [
     sh:path dcai:hasFindingSummary ;
@@ -143,8 +149,15 @@ dcai:OntologyActionStateTransitionShape
     sh:datatype xsd:string
   ] ;
   sh:property [
+    sh:path dcai:hasFromActionState ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ( "REQUESTED" "VALIDATED" "QUEUED" "IN_REVIEW" "APPROVED" "REJECTED" "CLOSED" )
+  ] ;
+  sh:property [
     sh:path dcai:hasToActionState ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:in ( "REQUESTED" "VALIDATED" "QUEUED" "IN_REVIEW" "APPROVED" "REJECTED" "CLOSED" )
   ] ;
@@ -196,12 +209,14 @@ dcai:OntologyActionDispatchShape
   sh:property [
     sh:path dcai:hasDispatchStatus ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:in ( "SIMULATED_QUEUED" "SIMULATED_ACKNOWLEDGED" "SIMULATED_CLOSED" )
   ] ;
   sh:property [
     sh:path dcai:hasDispatchLifecycleState ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string ;
     sh:in ( "APPROVED" )
   ] ;

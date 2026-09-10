@@ -22,18 +22,23 @@ class SourceExtractRdfMapperTest {
         assertTrue(mapping.canonicalModel.contains(rack("RACK-A01"), Dcai.rackInRow, infrastructureRow("ROW-A")))
         assertTrue(mapping.canonicalModel.contains(capacityGroup("GPU-POD-A"), RDF.type, Dcai.ComputeCapacityGroup))
         assertTrue(mapping.canonicalModel.contains(asset("ASSET-GPU-RACK-ROW-A"), Dcai.hasCriticality, state("criticality", "critical")))
+        assertTrue(mapping.canonicalModel.contains(asset("ASSET-GPU-RACK-ROW-A"), Dcai.hasCriticalityLevel, "critical"))
         assertTrue(mapping.canonicalModel.contains(asset("ASSET-GPU-RACK-ROW-A"), Dcai.hasOperationalState, state("operational-status", "degraded")))
+        assertTrue(mapping.canonicalModel.contains(asset("ASSET-GPU-RACK-ROW-A"), Dcai.hasOperationalStatus, "degraded"))
         assertTrue(mapping.canonicalModel.contains(asset("ASSET-RACK-PDU-A"), RDF.type, Dcai.PowerAsset))
         assertTrue(mapping.canonicalModel.contains(asset("ASSET-RACK-PDU-A"), RDF.type, Dcai.PowerDistributionUnit))
         assertTrue(mapping.canonicalModel.contains(incident("INC-001"), Dcai.affectsAsset, asset("ASSET-GPU-RACK-ROW-A")))
-        assertTrue(mapping.canonicalModel.contains(incident("INC-001"), Dcai.hasIncidentStageState, state("incident-stage", "validation")))
+        assertTrue(mapping.canonicalModel.contains(incident("INC-001"), Dcai.hasCurrentStage, workflowStage("VALIDATION")))
+        assertTrue(mapping.canonicalModel.contains(incident("INC-001"), Dcai.hasIncidentLifecycleState, state("incident-lifecycle", "in-progress")))
         assertTrue(mapping.canonicalModel.contains(dependencyEdge("EDGE-RACK-PDU-A"), Dcai.hasDependencyAsset, asset("ASSET-RACK-PDU-A")))
         assertTrue(mapping.canonicalModel.contains(dependencyEdge("EDGE-RACK-PDU-A"), Dcai.hasDependencyRoleConcept, state("dependency-role", "power-supply")))
+        assertTrue(mapping.canonicalModel.contains(dependencyEdge("EDGE-RACK-PDU-A"), Dcai.hasDependencyRole, "power-supply"))
         assertTrue(mapping.canonicalModel.contains(dependencyEdge("EDGE-RACK-PDU-A"), Dcai.hasImpactScopeConcept, state("impact-scope", "rack-row")))
         assertTrue(mapping.canonicalModel.contains(workflowEvent("EVT-001"), Dcai.eventForIncident, incident("INC-001")))
         assertTrue(mapping.canonicalModel.contains(workflowEvent("EVT-001"), Dcai.hasWorkflowEventStatus, state("workflow-event-status", "open")))
         assertTrue(mapping.canonicalModel.contains(impact("IMPACT-001"), Dcai.estimatedCapacityRiskKw))
         assertTrue(mapping.canonicalModel.contains(impact("IMPACT-001"), Dcai.hasRedundancyStateConcept, state("redundancy-state", "n-1")))
+        assertTrue(mapping.canonicalModel.contains(impact("IMPACT-001"), Dcai.hasRedundancyState, "n-1"))
         assertTrue(mapping.canonicalModel.contains(impact("IMPACT-001"), Dcai.hasMitigationStateConcept, state("mitigation-state", "running-degraded")))
         assertTrue(mapping.canonicalModel.contains(impact("IMPACT-001"), Dcai.hasVendorStateConcept, state("vendor-state", "eta-missed")))
         assertTrue(mapping.canonicalModel.contains(evidence("EVIDENCE-001"), Dcai.supportsFact, impact("IMPACT-001")))
@@ -64,6 +69,8 @@ class SourceExtractRdfMapperTest {
     private fun capacityGroup(id: String) = ResourceFactory.createResource("urn:dcai:capacity-group:$id")
 
     private fun incident(id: String) = ResourceFactory.createResource("urn:dcai:incident:$id")
+
+    private fun workflowStage(id: String) = ResourceFactory.createResource("urn:dcai:workflow-stage:$id")
 
     private fun dependencyEdge(id: String) = ResourceFactory.createResource("urn:dcai:dependency-edge:$id")
 

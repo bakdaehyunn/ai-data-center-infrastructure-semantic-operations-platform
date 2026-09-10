@@ -42,7 +42,7 @@ class RecordedSourceScenarioGenerator {
 
         repeat(profile.invalidIncidentRows) { index ->
             val badId = context.indexed("BAD", index)
-            incidents += listOf("INC-GEN-$badId", "", "STAGE-VALIDATION", "Validation")
+            incidents += listOf("INC-GEN-$badId", "", "STAGE-VALIDATION", "Validation", "IN_PROGRESS")
         }
         repeat(profile.duplicateWorkflowRows) { index ->
             val scenarioId = context.indexed("SCN", index)
@@ -94,7 +94,7 @@ class RecordedSourceScenarioGenerator {
             ),
             GeneratedCsv(
                 "incidents.csv",
-                listOf("incidentId", "assetId", "currentStageId", "currentStageLabel"),
+                listOf("incidentId", "assetId", "currentStageId", "currentStageLabel", "lifecycleState"),
                 incidents,
             ),
             GeneratedCsv(
@@ -238,7 +238,7 @@ class RecordedSourceScenarioGenerator {
         }
 
         fun incidentRows(): List<List<String>> {
-            return listOf(listOf(incident, gpu, type.stageId, type.stageLabel))
+            return listOf(listOf(incident, gpu, type.stageId, type.stageLabel, "IN_PROGRESS"))
         }
 
         fun dependencyRows(): List<List<String>> {

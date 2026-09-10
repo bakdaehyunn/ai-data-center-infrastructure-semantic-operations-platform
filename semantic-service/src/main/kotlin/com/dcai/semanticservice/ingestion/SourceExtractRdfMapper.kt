@@ -123,11 +123,11 @@ class SourceExtractRdfMapper {
                 derivedFrom(capacityGroup, record)
             }
             record.criticalityLevel?.let {
-                canonicalModel.add(asset, Dcai.hasCriticalityLevel, it)
+                canonicalModel.add(asset, Dcai.hasCriticalityLevel, normalizedToken(it))
                 canonicalModel.add(asset, Dcai.hasCriticality, controlledState(Dcai.CriticalityLevel, "criticality", it))
             }
             record.operationalStatus?.let {
-                canonicalModel.add(asset, Dcai.hasOperationalStatus, it)
+                canonicalModel.add(asset, Dcai.hasOperationalStatus, normalizedToken(it))
                 canonicalModel.add(asset, Dcai.hasOperationalState, controlledState(Dcai.OperationalStatus, "operational-status", it))
             }
             derivedFrom(asset, record)
@@ -143,7 +143,13 @@ class SourceExtractRdfMapper {
             canonicalModel.add(incident, Dcai.hasIdentifier, record.incidentId)
             canonicalModel.add(incident, Dcai.affectsAsset, asset(record.assetId))
             canonicalModel.add(incident, Dcai.hasCurrentStage, stage)
-            canonicalModel.add(incident, Dcai.hasIncidentStageState, controlledState(Dcai.IncidentStageState, "incident-stage", record.currentStageId))
+            record.lifecycleState?.let {
+                canonicalModel.add(
+                    incident,
+                    Dcai.hasIncidentLifecycleState,
+                    controlledState(Dcai.IncidentLifecycleState, "incident-lifecycle", it.id),
+                )
+            }
             derivedFrom(incident, record)
         }
 
@@ -153,9 +159,9 @@ class SourceExtractRdfMapper {
             canonicalModel.add(edge, Dcai.hasIdentifier, record.edgeId)
             canonicalModel.add(edge, Dcai.hasDependentAsset, asset(record.dependentAssetId))
             canonicalModel.add(edge, Dcai.hasDependencyAsset, asset(record.dependencyAssetId))
-            canonicalModel.add(edge, Dcai.hasDependencyRole, record.dependencyRole)
+            canonicalModel.add(edge, Dcai.hasDependencyRole, normalizedToken(record.dependencyRole))
             canonicalModel.add(edge, Dcai.hasDependencyRoleConcept, controlledState(Dcai.DependencyRole, "dependency-role", record.dependencyRole))
-            canonicalModel.add(edge, Dcai.hasImpactScope, record.impactScope)
+            canonicalModel.add(edge, Dcai.hasImpactScope, normalizedToken(record.impactScope))
             canonicalModel.add(edge, Dcai.hasImpactScopeConcept, controlledState(Dcai.ImpactScope, "impact-scope", record.impactScope))
             derivedFrom(edge, record)
 
@@ -178,7 +184,7 @@ class SourceExtractRdfMapper {
             canonicalModel.add(event, Dcai.hasEventId, record.eventId)
             canonicalModel.add(event, Dcai.eventForIncident, incident(record.incidentId))
             canonicalModel.add(event, Dcai.enteredStage, stage)
-            canonicalModel.add(event, Dcai.hasEventStatus, record.status)
+            canonicalModel.add(event, Dcai.hasEventStatus, normalizedToken(record.status))
             canonicalModel.add(event, Dcai.hasWorkflowEventStatus, controlledState(Dcai.WorkflowEventStatus, "workflow-event-status", record.status))
             canonicalModel.add(event, Dcai.enteredAt, literal(record.enteredAt))
             record.exitedAt?.let { canonicalModel.add(event, Dcai.exitedAt, literal(it)) }
@@ -200,16 +206,16 @@ class SourceExtractRdfMapper {
             record.affectedRackCount?.let {
                 canonicalModel.add(impact, Dcai.affectedRackCount, literal(it.toString(), XSDDatatype.XSDinteger))
             }
-            record.redundancyState?.let { canonicalModel.add(impact, Dcai.hasRedundancyState, it) }
+            record.redundancyState?.let { canonicalModel.add(impact, Dcai.hasRedundancyState, normalizedToken(it)) }
             record.redundancyState?.let {
                 canonicalModel.add(impact, Dcai.hasRedundancyStateConcept, controlledState(Dcai.RedundancyState, "redundancy-state", it))
             }
             record.mitigationState?.let {
-                canonicalModel.add(impact, Dcai.hasMitigationState, it)
+                canonicalModel.add(impact, Dcai.hasMitigationState, normalizedToken(it))
                 canonicalModel.add(impact, Dcai.hasMitigationStateConcept, controlledState(Dcai.MitigationState, "mitigation-state", it))
             }
             record.vendorState?.let {
-                canonicalModel.add(impact, Dcai.hasVendorState, it)
+                canonicalModel.add(impact, Dcai.hasVendorState, normalizedToken(it))
                 canonicalModel.add(impact, Dcai.hasVendorStateConcept, controlledState(Dcai.VendorState, "vendor-state", it))
             }
             record.vendorEtaAt?.let { canonicalModel.add(impact, Dcai.vendorEtaAt, literal(it)) }
@@ -220,24 +226,24 @@ class SourceExtractRdfMapper {
             val evidence = evidence(record.evidenceId)
             canonicalModel.add(evidence, RDF.type, record.evidenceClass.rdfClass())
             canonicalModel.add(evidence, Dcai.supportsFact, supportedResource(record.supportsId))
-            canonicalModel.add(evidence, Dcai.hasConfidenceState, record.confidenceState)
+            canonicalModel.add(evidence, Dcai.hasConfidenceState, normalizedToken(record.confidenceState))
             canonicalModel.add(evidence, Dcai.hasEvidenceConfidence, controlledState(Dcai.EvidenceConfidenceState, "evidence-confidence", record.confidenceState))
             canonicalModel.add(evidence, Dcai.hasEvidenceTimestamp, literal(record.timestamp))
             record.metricName?.let { canonicalModel.add(evidence, Dcai.hasMetricName, it) }
             record.metricValue?.let { canonicalModel.add(evidence, Dcai.hasMetricValue, literal(it.toPlainString(), XSDDatatype.XSDdecimal)) }
             record.metricUnit?.let { canonicalModel.add(evidence, Dcai.hasMetricUnit, it) }
             record.telemetryStatus?.let {
-                canonicalModel.add(evidence, Dcai.hasTelemetryStatus, it)
+                canonicalModel.add(evidence, Dcai.hasTelemetryStatus, normalizedToken(it))
                 canonicalModel.add(evidence, Dcai.hasTelemetryState, controlledState(Dcai.TelemetryStatus, "telemetry-status", it))
             }
             record.validationId?.let { canonicalModel.add(evidence, Dcai.hasValidationId, it) }
             record.validationStatus?.let {
-                canonicalModel.add(evidence, Dcai.hasValidationStatus, it)
+                canonicalModel.add(evidence, Dcai.hasValidationStatus, normalizedToken(it))
                 canonicalModel.add(evidence, Dcai.hasValidationState, controlledState(Dcai.ValidationStatus, "validation-status", it))
             }
             record.workOrderId?.let { canonicalModel.add(evidence, Dcai.hasWorkOrderId, it) }
             record.workOrderStatus?.let {
-                canonicalModel.add(evidence, Dcai.hasWorkOrderStatus, it)
+                canonicalModel.add(evidence, Dcai.hasWorkOrderStatus, normalizedToken(it))
                 canonicalModel.add(evidence, Dcai.hasWorkOrderState, controlledState(Dcai.WorkOrderStatus, "work-order-status", it))
             }
             record.assignedTeam?.let { canonicalModel.add(evidence, Dcai.hasAssignedTeam, it) }
@@ -330,10 +336,11 @@ class SourceExtractRdfMapper {
         private fun evidence(id: String) = ResourceFactory.createResource("urn:dcai:evidence:${encode(id)}")
 
         private fun controlledState(type: Resource, category: String, value: String): Resource {
-            val state = ResourceFactory.createResource("urn:dcai:state:$category:${encode(normalizedToken(value))}")
+            val canonicalValue = normalizedToken(value)
+            val state = ResourceFactory.createResource("urn:dcai:state:$category:${encode(canonicalValue)}")
             canonicalModel.add(state, RDF.type, type)
-            canonicalModel.add(state, Dcai.hasIdentifier, normalizedToken(value))
-            canonicalModel.add(state, RDFS.label, value)
+            canonicalModel.add(state, Dcai.hasIdentifier, canonicalValue)
+            canonicalModel.add(state, RDFS.label, canonicalValue)
             return state
         }
     }

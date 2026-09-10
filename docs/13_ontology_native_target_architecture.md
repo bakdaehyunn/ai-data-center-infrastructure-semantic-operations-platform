@@ -104,6 +104,7 @@ ontology/modules/evidence.ttl
 ontology/modules/provenance.ttl
 ontology/modules/ai-interaction.ttl
 ontology/modules/operations.ttl
+ontology/modules/state-vocabulary.ttl
 ```
 
 ### Core
@@ -162,6 +163,7 @@ Primary classes:
 
 - `dcai:InfrastructureIncident`
 - `dcai:WorkflowStage`
+- `dcai:IncidentLifecycleState`
 - `dcai:WorkflowEvent`
 - `dcai:RecoveryBlocker`
 - `dcai:FollowUpDecision`
@@ -169,10 +171,18 @@ Primary classes:
 Primary properties:
 
 - `dcai:hasCurrentStage`
+- `dcai:hasIncidentLifecycleState`
 - `dcai:enteredStage`
 - `dcai:exitedStage`
 - `dcai:hasAllowedNextStage`
 - `dcai:hasRecommendedAction`
+
+`hasCurrentStage` records process position. `hasIncidentLifecycleState` records
+the independent incident lifecycle (`in-progress` or `restored`). The deprecated
+`hasIncidentStageState` property must not be populated by new ingestion paths.
+All controlled concepts use canonical lowercase kebab-case identifiers and
+closed OWL/SHACL vocabularies; source case and separator variants are normalized
+before promotion.
 
 ### Impact
 

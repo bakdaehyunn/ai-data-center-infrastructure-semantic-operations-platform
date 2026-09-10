@@ -20,6 +20,7 @@ class FileSourceExtractLoaderTest {
         assertEquals(1, batch.zones.size)
         assertEquals(3, batch.assets.size)
         assertEquals(1, batch.incidents.size)
+        assertEquals(IncidentLifecycleState.IN_PROGRESS, batch.incidents.single().lifecycleState)
         assertEquals(2, batch.dependencies.size)
         assertEquals(1, batch.workflowEvents.size)
         assertEquals(1, batch.impacts.size)

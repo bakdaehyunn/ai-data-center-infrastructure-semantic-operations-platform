@@ -37,6 +37,18 @@ The loader maps these files into approved `SourceExtract` DTO families:
 Invalid rows and duplicate natural keys are quarantined in the connector load
 report. They are not promoted.
 
+The optional `incidents.csv.lifecycleState` field accepts `IN_PROGRESS` or
+`RESTORED`. It maps independently from `currentStageId`; absence means the source
+did not provide lifecycle state, not that lifecycle should be inferred from the
+workflow stage.
+
+Source systems may use uppercase, underscores, spaces, or hyphens for controlled
+values. Promotion normalizes them to lowercase kebab-case in canonical RDF (for
+example, `N_PLUS_1` becomes `n-plus-1`). The resulting concept IRI must be a
+member of the closed OWL/SHACL vocabulary in
+`ontology/modules/state-vocabulary.ttl`; an unregistered value fails promotion
+instead of silently creating a new state.
+
 ## Scenario Inventory
 
 Generated batches now include `scenario_inventory.csv`. This file explains the

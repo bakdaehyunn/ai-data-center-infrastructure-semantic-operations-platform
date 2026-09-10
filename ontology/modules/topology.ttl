@@ -49,16 +49,16 @@ dcai:hasDependentAsset rdf:type owl:ObjectProperty ;
 dcai:hasDependencyAsset rdf:type owl:ObjectProperty ;
   rdfs:domain dcai:DependencyEdge ;
   rdfs:range dcai:InfrastructureAsset .
-dcai:hasDependencyRole rdf:type owl:DatatypeProperty ;
+dcai:hasDependencyRole rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DependencyEdge ;
   rdfs:range xsd:string .
-dcai:hasDependencyRoleConcept rdf:type owl:ObjectProperty ;
+dcai:hasDependencyRoleConcept rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DependencyEdge ;
   rdfs:range dcai:DependencyRole .
-dcai:hasImpactScope rdf:type owl:DatatypeProperty ;
+dcai:hasImpactScope rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DependencyEdge ;
   rdfs:range xsd:string .
-dcai:hasImpactScopeConcept rdf:type owl:ObjectProperty ;
+dcai:hasImpactScopeConcept rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:DependencyEdge ;
   rdfs:range dcai:ImpactScope .
 dcai:hasPathStep rdf:type owl:ObjectProperty ;

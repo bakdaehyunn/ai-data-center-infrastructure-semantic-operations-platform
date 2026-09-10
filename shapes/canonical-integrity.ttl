@@ -1,6 +1,25 @@
 @prefix dcai: <urn:dcai:ontology:> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix state: <urn:dcai:state:incident-lifecycle:> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dcai:ControlledVocabularyTermShape
+  a sh:NodeShape ;
+  sh:targetClass dcai:ControlledVocabularyTerm ;
+  sh:nodeKind sh:IRI ;
+  sh:property [
+    sh:path dcai:hasIdentifier ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string
+  ] ;
+  sh:property [
+    sh:path rdfs:label ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string
+  ] .
 
 dcai:InfrastructureAssetCanonicalShape
   a sh:NodeShape ;
@@ -21,14 +40,36 @@ dcai:InfrastructureAssetCanonicalShape
     sh:datatype xsd:string
   ] ;
   sh:property [
+    sh:path dcai:hasCriticalityLevel ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string
+  ] ;
+  sh:property [
+    sh:path dcai:hasCriticality ;
+    sh:maxCount 1 ;
+    sh:class dcai:CriticalityLevel
+  ] ;
+  sh:property [
+    sh:path ( dcai:hasCriticality rdfs:label ) ;
+    sh:equals dcai:hasCriticalityLevel ;
+    sh:message "hasCriticalityLevel must equal the canonical label of hasCriticality."
+  ] ;
+  sh:property [
     sh:path dcai:hasOperationalStatus ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:datatype xsd:string
   ] ;
   sh:property [
     sh:path dcai:hasOperationalState ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
     sh:class dcai:OperationalStatus
+  ] ;
+  sh:property [
+    sh:path ( dcai:hasOperationalState rdfs:label ) ;
+    sh:equals dcai:hasOperationalStatus ;
+    sh:message "hasOperationalStatus must equal the rdfs:label of hasOperationalState."
   ] .
 
 dcai:IncidentCanonicalShape
@@ -52,9 +93,15 @@ dcai:IncidentCanonicalShape
     sh:class dcai:WorkflowStage
   ] ;
   sh:property [
+    sh:path dcai:hasIncidentLifecycleState ;
+    sh:maxCount 1 ;
+    sh:class dcai:IncidentLifecycleState ;
+    sh:in ( state:in-progress state:restored )
+  ] ;
+  sh:property [
     sh:path dcai:hasIncidentStageState ;
-    sh:minCount 1 ;
-    sh:class dcai:IncidentStageState
+    sh:maxCount 0 ;
+    sh:message "hasIncidentStageState is deprecated; use hasCurrentStage and hasIncidentLifecycleState separately."
   ] .
 
 dcai:CapacityGroupCanonicalShape

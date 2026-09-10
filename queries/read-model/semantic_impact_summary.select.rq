@@ -25,12 +25,12 @@ WHERE {
       BIND(?impact AS ?redundancyLostImpact)
     }
     OPTIONAL {
-      ?impact dcai:hasVendorState "ETA_MISSED" .
+      ?impact dcai:hasVendorState "eta-missed" .
       BIND(?impact AS ?vendorEtaMissedImpact)
     }
     OPTIONAL {
       ?impact dcai:hasMitigationState ?mitigationState .
-      FILTER(?mitigationState = "RUNNING_DEGRADED" || ?mitigationState = "MITIGATED")
+      FILTER(?mitigationState = "running-degraded" || ?mitigationState = "mitigated")
       BIND(?impact AS ?mitigatedImpact)
     }
   }

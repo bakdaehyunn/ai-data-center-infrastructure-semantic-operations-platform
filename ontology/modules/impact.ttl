@@ -55,22 +55,22 @@ dcai:powerRedundancyLost rdf:type owl:DatatypeProperty ;
 dcai:coolingRedundancyLost rdf:type owl:DatatypeProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range xsd:boolean .
-dcai:hasRedundancyState rdf:type owl:DatatypeProperty ;
+dcai:hasRedundancyState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range xsd:string .
-dcai:hasRedundancyStateConcept rdf:type owl:ObjectProperty ;
+dcai:hasRedundancyStateConcept rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range dcai:RedundancyState .
-dcai:hasMitigationState rdf:type owl:DatatypeProperty ;
+dcai:hasMitigationState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range xsd:string .
-dcai:hasMitigationStateConcept rdf:type owl:ObjectProperty ;
+dcai:hasMitigationStateConcept rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range dcai:MitigationState .
-dcai:hasVendorState rdf:type owl:DatatypeProperty ;
+dcai:hasVendorState rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range xsd:string .
-dcai:hasVendorStateConcept rdf:type owl:ObjectProperty ;
+dcai:hasVendorStateConcept rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain dcai:ImpactObservation ;
   rdfs:range dcai:VendorState .
 dcai:vendorEtaAt rdf:type owl:DatatypeProperty ;

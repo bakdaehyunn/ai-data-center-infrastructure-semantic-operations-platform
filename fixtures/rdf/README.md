@@ -6,7 +6,8 @@ It does not add executable RDF ingestion, graph promotion, or service logic.
 Future fixture groups:
 
 - `valid/minimal-incident.ttl`: valid minimal incident graph with an incident,
-  affected asset, zone, current workflow stage, source record, and provenance.
+  affected asset, zone, current workflow stage, independent lifecycle state,
+  source record, and provenance.
 - `valid/dependency-path.ttl`: valid dependency path graph with assets,
   dependency edges, path membership, and topology provenance.
 - `valid/evidence-provenance.ttl`: valid evidence/provenance graph linking

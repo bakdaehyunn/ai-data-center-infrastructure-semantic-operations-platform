@@ -23,6 +23,7 @@ enum class SemanticValidationProfile(
             "provenance-required.ttl",
             "reasoning-output-validation.ttl",
             "source-required-fields.ttl",
+            "state-vocabulary.ttl",
             "topology-integrity.ttl",
             "workflow-transitions.ttl",
         ),
