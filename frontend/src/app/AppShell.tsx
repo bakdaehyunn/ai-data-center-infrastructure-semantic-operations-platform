@@ -20,7 +20,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="brand-mark" aria-hidden="true"><ServerCog size={20} /></div>
           <div>
             <strong>Infrastructure Ops</strong>
-            <span>Return-to-service console</span>
+            <span>Synthetic recovery demo</span>
           </div>
           <button className="mobile-nav-close" type="button" onClick={() => setOpen(false)} aria-label="Close navigation">
             <X size={19} />
@@ -38,7 +38,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="context-dot" aria-hidden="true" />
           <div>
             <strong>Semantic operations</strong>
-            <span>Read models connected</span>
+            <span>Simulated source records</span>
           </div>
         </div>
       </aside>

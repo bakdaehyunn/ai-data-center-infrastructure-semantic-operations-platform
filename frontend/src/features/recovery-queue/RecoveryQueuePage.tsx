@@ -123,9 +123,9 @@ export function RecoveryQueuePage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Live operations"
+        eyebrow="Synthetic demo"
         title="Recovery Queue"
-        description="Prioritized interventions for safely returning AI infrastructure to service."
+        description="Recovery cases from recorded simulations. Actions create local audit records only."
         actions={(
           <div className="freshness-actions">
             <div className={`freshness ${error || stale ? 'warning' : ''}`}>

@@ -9,7 +9,13 @@ The current implementation answers a bounded question:
 > and direct dependency records, what blocker or evidence conflict can the
 > operator inspect, and which local audited action is allowed?
 
-![Semantic operations workbench](docs/assets/dashboard-preview.png)
+![Recovery Queue running against synthetic recorded-source data](docs/assets/dashboard-preview.jpg)
+
+Captured from the local React/Kotlin/Fuseki demo on 2026-10-10 using the MVP
+profile and seed `20260610` in an isolated in-memory dataset. These are simulated
+infrastructure records, not live customer operations. Missing values remain unknown; queue ranks are not
+evidence of an implemented prioritization model. Existing local graph contents
+can affect totals, so the screenshot's counts are not a fixed expected result.
 
 ## What is implemented
 
@@ -90,13 +96,26 @@ docker run --rm \
 Run the private service:
 
 ```bash
-docker run --rm -p 127.0.0.1:18080:18080 \
+docker run --rm --name dcai-semantic-demo -p 127.0.0.1:18080:18081 \
   -v "$PWD":/workspace \
   -w /workspace/semantic-service \
   -e DCAI_FUSEKI_DATASET_URL=http://host.docker.internal:3030/infrastructure \
   gradle:8.10.2-jdk17 \
   gradle --no-daemon run --args="--repo-root=/workspace --serve-private-query-endpoint"
 ```
+
+In another terminal, forward the published container port to the service's
+container-local loopback listener:
+
+```bash
+docker run --rm --name dcai-semantic-demo-forwarder \
+  --network container:dcai-semantic-demo \
+  alpine/socat TCP-LISTEN:18081,fork,reuseaddr TCP:127.0.0.1:18080
+```
+
+The Kotlin service remains bound to `127.0.0.1` inside its container. Only the
+forwarded port is published on the host's `127.0.0.1`; a direct mapping to
+container port 18080 cannot reach that loopback-only listener.
 
 Run the frontend:
 
@@ -108,6 +127,14 @@ npm run dev
 
 This is a multi-command local demonstration, not a production deployment or a
 single-command end-to-end installer.
+
+Additional captures from the same demo:
+
+- [Recovery case](docs/assets/follow-up-detail-preview.jpg)
+- [Mobile Recovery Queue](docs/assets/dashboard-mobile-preview.jpg)
+
+See [Screenshot capture notes](docs/assets/README.md) for routes and reproduction
+details.
 
 ## Action boundary
 
